@@ -1,7 +1,12 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
-    <main>
-      home
-    </main>
+    <>
+    <h1>HOME</h1>
+    <section>
+      <Link href='/product/item'>produtos</Link>
+    </section>
+    </>
   )
 }

@@ -43,5 +43,32 @@ export const products = [
     imageAlt: "Front of men's Basic Tee in black.",
     price: '$35',
     color: 'Black',
+  },
+  {
+    id: 6,
+    name: 'Basic Tee',
+    href: `/product/item`,
+    imageSrc: 'https://source.unsplash.com/random/600x400/?sapato',
+    imageAlt: "Front of men's Basic Tee in black.",
+    price: '$35',
+    color: 'Black',
+  },
+  {
+    id: 7,
+    name: 'Basic Tee',
+    href: `/product/item`,
+    imageSrc: 'https://source.unsplash.com/random/600x400/?tênis',
+    imageAlt: "Front of men's Basic Tee in black.",
+    price: '$35',
+    color: 'Black',
+  },
+  {
+    id: 8,
+    name: 'Basic Tee',
+    href: `/product/item`,
+    imageSrc: 'https://source.unsplash.com/random/600x400/?calcado+esportivo',
+    imageAlt: "Front of men's Basic Tee in black.",
+    price: '$35',
+    color: 'Black',
   }
 ]

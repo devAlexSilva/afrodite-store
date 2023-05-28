@@ -5,12 +5,12 @@ const category = {
   fields: [
     {
       name: 'title',
-      title: 'Title',
+      title: 'Titulo',
       type: 'string',
     },
     {
       name: 'description',
-      title: 'Description',
+      title: 'Descrição',
       type: 'text',
     },
   ],

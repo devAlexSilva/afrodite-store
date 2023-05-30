@@ -3,9 +3,14 @@ const product = {
   title: 'Product',
   type: 'document',
   fields: [
+    { 
+      name: 'title',
+      title: 'Nome para uso interno',
+      type: 'string',
+    },
     {
       name: 'mainImage',
-      title: 'Main image',
+      title: 'Imagem Principal',
       type: 'image',
       options: {
         hotspot: true,
@@ -14,13 +19,13 @@ const product = {
         {
           name: 'alt',
           type: 'string',
-          title: 'Alternative Text',
+          title: 'Texto Alternativo',
         }
       ]
     },
     {
       name: 'image',
-      title: 'Image',
+      title: 'Imagem extra',
       type: 'array',
       of: [{ type: 'image' }],
       options: {
@@ -29,7 +34,7 @@ const product = {
     },
     { 
       name: 'name',
-      title: 'Name',
+      title: 'Nome',
       type: 'string',
     },
     { 
@@ -41,26 +46,52 @@ const product = {
         maxLength: 90,
       }
     },
+    {
+      name: 'categories',
+      title: 'Categorias',
+      type: 'array',
+      of: [{type: 'reference', to: {type: 'category'}}],
+    },
     { 
       name: 'price',
-      title: 'Price',
+      title: 'Preço',
       type: 'number',
     },
     { 
-      name: 'details',
-      title: 'Details',
+      name: 'description',
+      title: 'Descrição',
       type: 'string',
+    },
+    {
+      name: 'highlights',
+      title: 'Destaques',
+      type: 'array',
+      of: [{
+        type: 'string'
+      }]
+    },
+    {
+      name: 'details',
+      title: 'Detalhes',
+      type: 'string',
+    },
+    {
+      name: 'colors',
+      title: 'Cor',
+      type: 'array',
+      of: [{
+        type: 'string'
+      }]
+    },
+    {
+      name: 'sizes',
+      title: 'Tamanhos',
+      type: 'array',
+      of: [{
+        type: 'string'
+      }]
     }
-  ],
-  preview: {
-    select: {
-      title: 'title',
-      media: 'mainImage',
-    },
-    prepare(selection) {
-      return {...selection}
-    },
-  },
+  ]
 }
 
 export default product

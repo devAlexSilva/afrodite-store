@@ -56,9 +56,9 @@ export default function Product() {
   const { slug } = useParams()
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
   const [selectedSize, setSelectedSize] = useState(product.sizes[2])
-  
+
   console.log(slug)
-  
+
   return (
     <div className="bg-white">
       <div className="pt-6">
@@ -154,12 +154,9 @@ export default function Product() {
                       <RadioGroup.Option
                         key={size.name}
                         value={size}
-                        disabled={!size.inStock}
                         className={({ active }) =>
                           classNames(
-                            size.inStock
-                              ? 'cursor-pointer bg-white text-gray-900 shadow-sm'
-                              : 'cursor-not-allowed bg-gray-50 text-gray-400',
+                            'cursor-pointer bg-white text-gray-900 shadow-sm',
                             active ? 'ring-2 ring-indigo-500' : '',
                             'group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6'
                           )
@@ -168,7 +165,6 @@ export default function Product() {
                         {({ active, checked }) => (
                           <>
                             <RadioGroup.Label as="span">{size.name}</RadioGroup.Label>
-                            {size.inStock ? (
                               <span
                                 className={classNames(
                                   active ? 'border' : 'border-2',
@@ -177,21 +173,6 @@ export default function Product() {
                                 )}
                                 aria-hidden="true"
                               />
-                            ) : (
-                              <span
-                                aria-hidden="true"
-                                className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
-                              >
-                                <svg
-                                  className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
-                                  viewBox="0 0 100 100"
-                                  preserveAspectRatio="none"
-                                  stroke="currentColor"
-                                >
-                                  <line x1={0} y1={100} x2={100} y2={0} vectorEffect="non-scaling-stroke" />
-                                </svg>
-                              </span>
-                            )}
                           </>
                         )}
                       </RadioGroup.Option>
@@ -230,13 +211,17 @@ export default function Product() {
                 </ul>
               </div>
             </div>
-
-            <div className="mt-10">
-              <h2 className="text-sm font-medium text-gray-900">Detalhes</h2>
-              <div className="mt-4 space-y-6">
-                <p className="text-sm text-gray-600">{product.details}</p>
+            
+            {/*SE HOUVER NECESSIDADE DE UMA SEÇÃO PARA DETALHES */
+              product?.details &&
+              <div className="mt-10">
+                <h2 className="text-sm font-medium text-gray-900">Detalhes</h2>
+                <div className="mt-4 space-y-6">
+                  <p className="text-sm text-gray-600">{product.details}</p>
+                </div>
               </div>
-            </div>
+            }
+            
           </div>
         </div>
       </div>

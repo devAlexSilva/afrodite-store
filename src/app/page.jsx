@@ -18,6 +18,7 @@ function classNames(...classes) {
 
 export default function Home() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+  const [categorySelected, setCategorySelected] = useState({name:'Novos', id: null})
 
   return (
     <div className="bg-white">
@@ -71,7 +72,7 @@ export default function Home() {
 
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-12 md:pt-24">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900">Mais Vistos</h1>
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900">Ofertas Imbatíveis</h1>
 
             <div className="flex items-center">
               <Menu as="div" className="relative inline-block text-left">
@@ -133,10 +134,10 @@ export default function Home() {
             </h2>
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
-              <Categories />
+              <Categories setCategorySelected={setCategorySelected}/>
               {/* Product grid */}
               <div className="lg:col-span-3">
-                <GridProducts />
+                <GridProducts categorySelected={categorySelected}/>
               </div>
             </div>
           </section>

@@ -2,24 +2,29 @@ import { client } from "../../sanity/lib/client"
 import { useEffect, useState } from "react"
 import { urlForImage } from "../../sanity/lib/image"
 
-const query = '*[_type == "product"]'
 
 
-export function GridProducts() {
+export function GridProducts({ categorySelected }) {
   const [productsList, setProdutcList] = useState()
+  const queryProductsByCategory = `*[_type == "product"][categories[0]._ref == "${categorySelected.ref}"]`
+  const queryAllProducts = '*[_type == "product"]'
 
-  const fetchData = async () => {
+  const fetchData = async (query) => {
     const products = await client.fetch(query)
     setProdutcList(products)
     console.log(products)
   }
 
-  useEffect(() => { (async () => await fetchData())() }, [])
+  useEffect(() => { 
+    categorySelected.ref 
+    ? (async () => await fetchData(queryProductsByCategory))() 
+    : (async () => await fetchData(queryAllProducts))() 
+  }, [categorySelected.ref])
 
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-3xl py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-0">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900">Chinelos</h2>
+        <h2 className="text-2xl font-bold tracking-tight text-gray-900">{categorySelected.name}</h2>
         <div className="mt-6 grid grid-cols-2 gap-x-2 gap-y-12 md:gap-x-4 lg:grid-cols-3 xl:gap-x-6">
 
           {productsList && productsList.map((product) => (

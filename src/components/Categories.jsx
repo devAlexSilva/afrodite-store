@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { client } from "../../sanity/lib/client"
 
 const query = '*[_type == "category"]'
-export function Categories({ isMobile }) {
+
+export function Categories({ isMobile, setCategorySelected }) {
   const [category, setCategory] = useState([])
 
   const listOfCategories = async () => {
@@ -19,9 +20,9 @@ export function Categories({ isMobile }) {
       <ul role="list" className="px-2 py-3 font-medium text-gray-900">
         {category.map((category) => (
           <li key={category._id}>
-            <a href='#' title={category.title} className="block px-2 py-3 hover:opacity-50">
+            <button onClick={() => setCategorySelected({name: category.title, ref: category._id})} className="block px-2 py-3 hover:opacity-50">
               {category.title}
-            </a>
+            </button>
           </li>
         ))}
       </ul>

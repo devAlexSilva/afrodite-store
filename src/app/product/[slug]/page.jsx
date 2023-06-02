@@ -62,7 +62,7 @@ export default function Product() {
       {product._id &&
         <div className="pt-6">
           {/* Image gallery */}
-          <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+          <div className="mx-auto mt-6 max-w-2xl sm:px-6 md:grid md:grid-cols-2 md:gap-x-6 md:max-w-3xl lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
             {product.image[0] &&
               <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
                 <img
@@ -71,7 +71,7 @@ export default function Product() {
                 />
               </div>
             }
-            <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+            <div className="hidden md:grid md:grid-cols-1 md:gap-y-8">
               {product.image[1] &&
                 <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                   <img
@@ -100,7 +100,7 @@ export default function Product() {
           </div>
 
           {/* Product info */}
-          <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
+          <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
             <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
               <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{product.name}</h1>
             </div>
@@ -108,9 +108,9 @@ export default function Product() {
             {/* Options */}
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
-              <p className="text-3xl tracking-tight text-gray-900">{product.price}</p>
+              <p className="text-3xl tracking-tight text-gray-900">{product.price.toLocaleString('pt-br', {style: 'currency', currency: 'BRL', minimumFractionDigits: 2})}</p>
 
-              <form className="mt-10">
+              <form className="mt-10 md:grid md:grid-cols-2 lg:block">
                 {/* Colors */}
                 <div>
                   <h3 className="text-sm font-medium text-gray-900">Cores</h3>
@@ -152,7 +152,7 @@ export default function Product() {
                 <div className="mt-10">
                   <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
                     <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
-                    <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+                    <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4 md:grid-cols-3">
                       {product.sizes.map((size) => (
                         <RadioGroup.Option
                           key={size}

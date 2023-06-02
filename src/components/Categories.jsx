@@ -1,27 +1,30 @@
-const subCategories = [
-  { name: 'Chinelos', href: '#' },
-  { name: 'Tênis', href: '#' },
-  { name: 'Blusas', href: '#' },
-  { name: 'Bermudas', href: '#' },
-  { name: 'Bolsas', href: '#' },
-  { name: 'Colares', href: '#' },
-  { name: 'kit acessorios', href: '#' },
-  { name: 'Carteira', href: '#' },
-]
+import { useEffect, useState } from "react"
+import { client } from "../../sanity/lib/client"
 
-export function Categories({isMobile}) {
+const query = '*[_type == "category"]'
+export function Categories({ isMobile }) {
+  const [category, setCategory] = useState([])
+
+  const listOfCategories = async () => {
+    const data = await client.fetch(query)
+    setCategory(data)
+    console.log(data)
+  }
+
+  useEffect(() => { listOfCategories() }, [])
+
   return (
-    <form className={`${isMobile ? 'mt-4 border-t border-gray-200' : 'hidden lg:block'}`}>
+    <aside className={`${isMobile ? 'mt-4 border-t border-gray-200' : 'hidden lg:block'}`}>
       <h3 className="sr-only">Categories</h3>
       <ul role="list" className="px-2 py-3 font-medium text-gray-900">
-        {subCategories.map((category) => (
-          <li key={category.name}>
-            <a href={category.href} className="block px-2 py-3">
-              {category.name}
+        {category.map((category) => (
+          <li key={category._id}>
+            <a href='#' title={category.title} className="block px-2 py-3 hover:opacity-50">
+              {category.title}
             </a>
           </li>
         ))}
       </ul>
-    </form>
+    </aside>
   )
 }

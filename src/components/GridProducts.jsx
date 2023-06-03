@@ -4,22 +4,37 @@ import { urlForImage } from "../../sanity/lib/image"
 
 
 
-export function GridProducts({ categorySelected }) {
+export function GridProducts({ sortOption, categorySelected }) {
   const [productsList, setProdutcList] = useState()
   const queryProductsByCategory = `*[_type == "product"][categories[0]._ref == "${categorySelected.ref}"]`
   const queryAllProducts = '*[_type == "product"]'
 
   const fetchData = async (query) => {
     const products = await client.fetch(query)
+
+    if (sortOption.name) {
+      switch (sortOption.name) {
+        case 'Preço: Menor':
+          products.sort((a, b) => a.price - b.price)
+          break;
+        case 'Preço: Maior':
+          products.sort((a, b) => b.price - a.price)
+          break;
+        
+          default:
+          break;
+      }
+    }
+
     setProdutcList(products)
     console.log(products)
   }
 
-  useEffect(() => { 
-    categorySelected.ref 
-    ? (async () => await fetchData(queryProductsByCategory))() 
-    : (async () => await fetchData(queryAllProducts))() 
-  }, [categorySelected.ref])
+  useEffect(() => {
+    categorySelected.ref
+      ? (async () => await fetchData(queryProductsByCategory))()
+      : (async () => await fetchData(queryAllProducts))()
+  }, [categorySelected.ref, sortOption])
 
   return (
     <div className="bg-white">

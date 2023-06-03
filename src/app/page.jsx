@@ -19,6 +19,11 @@ function classNames(...classes) {
 export default function Home() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const [categorySelected, setCategorySelected] = useState({name:'Novos', id: null})
+  const [sortOption, setSortOption] = useState({})
+  
+  const handleClickSortOptions = (option) => {
+    setSortOption(option)    
+  }
 
   return (
     <div className="bg-white">
@@ -48,12 +53,12 @@ export default function Home() {
                 leaveFrom="translate-x-0"
                 leaveTo="translate-x-full"
               >
-                <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
+                <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-gray-200 py-4 pb-12 shadow-xl">
                   <div className="flex items-center justify-between px-4">
                     <h2 className="text-lg font-medium text-gray-900">Filters</h2>
                     <button
                       type="button"
-                      className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400"
+                      className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-gray-200 p-2 text-gray-400"
                       onClick={() => setMobileFiltersOpen(false)}
                     >
                       <span className="sr-only">Close menu</span>
@@ -62,7 +67,7 @@ export default function Home() {
                   </div>
 
                   {/* Filters */}
-                  <Categories isMobile />
+                  <Categories isMobile setCategorySelected={setCategorySelected} />
                 </Dialog.Panel>
               </Transition.Child>
             </div>
@@ -95,13 +100,13 @@ export default function Home() {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-gray-200 shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
                       {sortOptions.map((option) => (
                         <Menu.Item key={option.name}>
                           {({ active }) => (
-                            <a
-                              href={option.href}
+                            <button
+                              onClick={() => handleClickSortOptions(option)}
                               className={classNames(
                                 option.current ? 'font-medium text-gray-900' : 'text-gray-500',
                                 active ? 'bg-gray-100' : '',
@@ -109,7 +114,7 @@ export default function Home() {
                               )}
                             >
                               {option.name}
-                            </a>
+                            </button>
                           )}
                         </Menu.Item>
                       ))}
@@ -137,7 +142,7 @@ export default function Home() {
               <Categories setCategorySelected={setCategorySelected}/>
               {/* Product grid */}
               <div className="lg:col-span-3">
-                <GridProducts categorySelected={categorySelected}/>
+                <GridProducts sortOption={sortOption} categorySelected={categorySelected}/>
               </div>
             </div>
           </section>

@@ -5,11 +5,11 @@ const query = '*[_type == "category"]'
 
 export function Categories({ isMobile, setCategorySelected }) {
   const [category, setCategory] = useState([])
+  const [isSelected, setIsSelected] = useState(false)
 
   const listOfCategories = async () => {
     const data = await client.fetch(query)
     setCategory(data)
-    console.log(data)
   }
 
   useEffect(() => { listOfCategories() }, [])

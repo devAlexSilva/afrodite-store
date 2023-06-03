@@ -1,9 +1,10 @@
 "use client"
 import { useEffect, useState } from 'react'
 import { RadioGroup } from '@headlessui/react'
-import { useParams } from 'next/navigation'
+import { useParams, usePathname } from 'next/navigation'
 import { client } from '../../../../sanity/lib/client'
 import { urlForImage } from '../../../../sanity/lib/image'
+import { getURL } from 'next/dist/shared/lib/utils'
 
 
 function classNames(...classes) {
@@ -16,7 +17,7 @@ export default function Product() {
   const [selectedSize, setSelectedSize] = useState('')
   const [product, setProduct] = useState({})
 
-  console.log(slug)
+
   const query = `*[_type == "product"][slug.current == '${slug}']`
 
   const fetchData = async () => {
@@ -54,6 +55,9 @@ export default function Product() {
     console.log(productData)
     setProduct(productData[0])
   }
+  
+    const encoded = encodeURI(`Nome: ${product.name}\nTamanho: ${selectedSize}\ncor: ${selectedColor.name}\nlink: ${window.location}`)
+  
 
   useEffect(() => { fetchData() }, [])
 
@@ -184,12 +188,13 @@ export default function Product() {
                   </RadioGroup>
                 </div>
 
-                <button
-                  type="submit"
+                <a target='_blank'
+                  href={`https://wa.me//5584996450132?text=${encoded}`}
+                  rel='noopener noreferrer'
                   className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
-                  Adiconar ao Carrinho
-                </button>
+                  Pedir no Whats
+                </a>
               </form>
             </div>
 

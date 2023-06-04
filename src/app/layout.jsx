@@ -1,6 +1,7 @@
 "use client"
 import { Navbar } from '@/components/Navbar'
 import './globals.css'
+import { Footer } from '@/components/Footer'
 
 export const metadata = {
   title: 'catalogo de produtos',
@@ -12,9 +13,10 @@ export default function RootLayout({ children }) {
     <html lang="pt-Br">
       <body>
         <Navbar />
-        <main>
+        <main className='min-h-[calc(100vh-7rem)]'>
           {children}
         </main>
+        <Footer />
       </body>
     </html>
   )

@@ -21,8 +21,10 @@ export default function Product() {
   const query = `*[_type == "product"][slug.current == '${slug}']`
 
   const fetchData = async () => {
-    const productData = await client.fetch(query)
-    productData[0].colorsOptions = []
+    const response = await client.fetch(query)
+    const productData = [{ ...response[0], colorsOptions: [] }]
+
+
 
     productData[0].colors.forEach(color => {
       switch (color) {
@@ -52,12 +54,13 @@ export default function Product() {
       }
     })
 
+    console.log(response)
     console.log(productData)
     setProduct(productData[0])
   }
-  
-    const encoded = encodeURI(`Nome: ${product?.name}\nTamanho: ${selectedSize}\ncor: ${selectedColor.name}\nlink: ${window.location}`)
-  
+
+  const encoded = encodeURI(`Nome: ${product?.name}\nTamanho: ${selectedSize}\ncor: ${selectedColor.name}\nlink: ${window.location}`)
+
 
   useEffect(() => { fetchData() }, [])
 
@@ -112,7 +115,7 @@ export default function Product() {
             {/* Options */}
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
-              <p className="text-3xl tracking-tight text-gray-900">{product?.price.toLocaleString('pt-br', {style: 'currency', currency: 'BRL', minimumFractionDigits: 2})}</p>
+              <p className="text-3xl tracking-tight text-gray-900">{product?.price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 })}</p>
 
               <form className="mt-10 md:grid md:grid-cols-2 lg:block">
                 {/* Colors */}
@@ -210,7 +213,7 @@ export default function Product() {
               <div className="mt-10">
                 <h3 className="text-sm font-medium text-gray-900">Especificações</h3>
                 <div className="mt-4">
-                  <ul role="list" className="list-decimal space-y-2 pl-4 text-sm">
+                  <ul role="list" className="list-decimal max-w-max space-y-2 pl-4 text-sm">
                     {product?.highlights.map((highlight) => (
                       <li key={highlight} className="text-gray-400 hover:list-disc">
                         <span className="text-gray-600">{highlight}</span>

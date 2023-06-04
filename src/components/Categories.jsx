@@ -19,7 +19,7 @@ export function Categories({ isMobile, setCategorySelected }) {
       <h3 className="sr-only">Categories</h3>
       <ul role="list" className="px-2 py-3 font-medium text-gray-900">
         {category.map((category) => (
-          <li key={category._id}>
+          <li key={category._id} className="hover:border-b-2 max-w-max">
             <button onClick={() => setCategorySelected({name: category.title, ref: category._id})} className="block px-2 py-3 hover:opacity-50">
               {category.title}
             </button>

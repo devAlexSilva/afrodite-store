@@ -20,8 +20,8 @@ export function GridProducts({ sortOption, categorySelected }) {
         case 'Preço: Maior':
           products.sort((a, b) => b.price - a.price)
           break;
-        
-          default:
+
+        default:
           break;
       }
     }
@@ -59,7 +59,9 @@ export function GridProducts({ sortOption, categorySelected }) {
                     </h3>
                     {/*SE TIVER TAG DE PROMOÇÃO <p className="mt-1 text-sm text-gray-500">{product?.tags || ''}</p> */}
                   </div>
-                  <p className="text-md font-medium text-gray-900">{product.price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 })}</p>
+                  <p className="text-md font-medium text-gray-900">
+                    {product.price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 })}
+                  </p>
                 </div>
               </article>
             </a>

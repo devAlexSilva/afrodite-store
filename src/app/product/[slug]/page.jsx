@@ -4,23 +4,23 @@ import { RadioGroup } from '@headlessui/react'
 import { useParams, usePathname } from 'next/navigation'
 import { client } from '../../../../sanity/lib/client'
 import { urlForImage } from '../../../../sanity/lib/image'
-import { getURL } from 'next/dist/shared/lib/utils'
-
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Product() {
+
   const { slug } = useParams()
   const [selectedColor, setSelectedColor] = useState('')
   const [selectedSize, setSelectedSize] = useState('')
   const [product, setProduct] = useState({})
-
+  const [isRenderingInClient, setIsRenderingInClient] = useState(false)
 
   const query = `*[_type == "product"][slug.current == '${slug}']`
 
   const fetchData = async () => {
+    (typeof window === 'undefined') ? setIsRenderingInClient(false) : setIsRenderingInClient(true)
     const response = await client.fetch(query)
     const productData = [{ ...response[0], colorsOptions: [] }]
 
@@ -59,7 +59,7 @@ export default function Product() {
     setProduct(productData[0])
   }
 
-  const encoded = encodeURI(`Nome: ${product?.name}\nTamanho: ${selectedSize}\ncor: ${selectedColor.name}\nlink: ${window.location}`)
+  const encoded = encodeURI(`Nome: ${product?.name}\nTamanho: ${selectedSize}\ncor: ${selectedColor.name}\nlink: ${isRenderingInClient && window.location}`)
 
 
   useEffect(() => { fetchData() }, [])
